@@ -224,6 +224,6 @@ my_CCA(R,2,2,population = F,n=140)
 
 #install.packages("CCP")
 library(CCP)
-rho <- my_CCA(R,2,2,population = F)$canonical
+rho <- my_CCA(R,2,2,population = F)$canonical_correlation
 p.asym(rho = rho,N = 140,p = 2,q = 2) # SEQUENTIAL TEST
 # 
