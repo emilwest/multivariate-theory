@@ -44,3 +44,13 @@ scree_plot <- function(eigenvalue){
              y= "Eigenvalue")
     
 }
+
+# for kxk positive definite matrix A
+get_square_root <- function(A){
+    lambda <- eigen(A)$values %>% diag()
+    P <- eigen(A)$vectors
+    return(P%*%sqrt(lambda)%*%t(P))
+    # a square root matrix is:
+    # symmetric
+    # sqrt(A)sqrt(A) = A , etc
+}
