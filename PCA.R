@@ -421,3 +421,27 @@ l2<-1.407
 e1*sqrt(l1)
 e2*sqrt(l2)
 
+
+
+R <- matrix(c(1,0.2,0.2,1), ncol=2,nrow=2,byrow=T)
+eigen(R)
+R <- matrix(c(1,0,0,1), ncol=2,nrow=2,byrow=T)
+eigen(R)
+R <- matrix(c(1,0,0,1), ncol=2,nrow=2,byrow=T)
+eigen(R)
+
+X<-data.frame(X1=c(2,4,1,6,2,6,3,7,2,7), X2=c(3,6,8,7,8,6,8,5,2,1)) %>% as.matrix(
+
+  )
+c<-5
+X[,1]<-X[,1]*c
+S<-my_covmatrix(X
+)
+S
+R<-convert_covmatrix_to_corrmatrix(S)
+R
+R[1,2]<-R[1,2]*-1
+R[2,1]<-R[2,1]*-1
+eigen(R)
+eigen(S)
+

@@ -227,3 +227,96 @@ library(CCP)
 rho <- my_CCA(R,2,2,population = F)$canonical_correlation
 p.asym(rho = rho,N = 140,p = 2,q = 2) # SEQUENTIAL TEST
 # 
+
+
+
+
+
+S <- matrix(c(1,.9,.7,
+              .9,1,.4,
+              .7,.4,1),ncol=3,nrow=3)
+S
+S11<-partition_2d(S,2,1)$S11
+partitions <- partition_2d(S,2,1)
+get_square_root(S11) %>% solve()
+ee<-eigen(S11)
+
+ee$vectors%*%diag(sqrt(ee$values) )%*%t(ee$vectors) %>% solve()
+ee$vectors%*%diag(1/sqrt(ee$values) )%*%t(ee$vectors)
+
+my_CCA(S,2,1)
+S <- partitions$mat
+S11 <- partitions$S11
+S11_sqrt_inv <- get_square_root(partitions$S11) %>% solve()
+S22_sqrt_inv <- get_square_root(partitions$S22) %>% solve()
+S11_inv <- partitions$S11 %>% solve()
+S22_inv <- partitions$S22 %>% solve()
+S22 <- partitions$S22
+S12 <- partitions$S12
+S21 <- partitions$S21
+
+
+A <- S11_sqrt_inv%*%S12%*%S22_inv%*%S21%*%S11_sqrt_inv
+B<-S22_sqrt_inv %*%S21 %*%S11_inv %*% S12 %*% S22_sqrt_inv
+eigen(B)
+
+e1<-eigen(A)$vectors[,1] %>% as.matrix()
+e2<-eigen(A)$vectors[,2] %>% as.matrix()
+e1%*%t(e2)
+a1 <- S11inv%*%e1
+a2 <- S11inv%*%e2
+b1 <- S22inv%*%S21%*%a1
+b2 <- S22inv%*%S21%*%a2
+
+
+
+
+
+
+S <- matrix(c(1,.975,.613,
+              .975,1,.620,
+              .613,.620,1),ncol=3,nrow=3)
+S
+
+partitions <- partition_2d(S,2,1)
+
+S11 <- partitions$S11
+S11_sqrt_inv <- get_square_root(partitions$S11) %>% solve()
+S22_sqrt_inv <- get_square_root(partitions$S22) %>% solve()
+S11_inv <- partitions$S11 %>% solve()
+S22_inv <- partitions$S22 %>% solve()
+S22 <- partitions$S22
+S12 <- partitions$S12
+S21 <- partitions$S21
+
+S11 %>% solve()
+
+
+B<-S22_sqrt_inv %*%S21 %*%S11_inv %*% S12 %*% S22_sqrt_inv
+eigen(B)
+sqrt(eigen(B)$values)
+
+
+p.asym(rho = sqrt(eigen(B)$values),N = 3,p = 2,q = 1) # SEQUENTIAL TEST
+
+
+test_if_partitions_are_uncorrelated(alpha = 0.05,covmat=2,p=2,q=1)
+
+
+
+
+
+-2*log(det(S) / ( det(S11)*det(as.matrix(S22))  ) )
+
+
+qchisq(0.05, df = 3,lower.tail = F)
+
+
+
+
+
+
+
+
+
+
